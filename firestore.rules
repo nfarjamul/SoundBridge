@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper to determine if the caller has verified administrator privileges:
+    // 1) Via Firebase Authentication Custom Claim (token.admin == true or token.role == 'admin')
+    // 2) Via protected adminUsers/{uid} document managed server-side
+    function isAdmin() {
+      return request.auth != null && (
+        request.auth.token.admin == true ||
+        request.auth.token.role == 'admin' ||
+        exists(/databases/$(database)/documents/adminUsers/$(request.auth.uid))
+      );
+    }
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Protected Admin Registry: Client writes forbidden; read allowed only for the specific user
+    match /adminUsers/{userId} {
+      allow read: if isAuthenticated() && request.auth.uid == userId;
+      allow write: if false; // Must be provisioned by backend or Firebase Admin SDK
+    }
+
+    // Global Sound Calibrations:
+    // Read: All authenticated users can synchronize calibration profiles (and cache locally)
+    // Write: Only verified administrators can publish, update, deactivate, or delete
+    match /globalSoundCalibrations/{calibrationId} {
+      allow read: if isAuthenticated();
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Calibration Audit Logs:
+    // Append-only immutable log. Only admins can read or append; updates and deletes are blocked.
+    match /calibrationAuditLogs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isAdmin();
+      allow update, delete: if false;
+    }
+
+    // User Alerts & Presence
+    match /users/{userId}/alerts/{alertId} {
+      allow read, write: if isAuthenticated() && request.auth.uid == userId;
+    }
+
+    match /users/{userId}/customSounds/{soundId} {
+      allow read, write: if isAuthenticated() && request.auth.uid == userId;
+    }
+  }
+}
+

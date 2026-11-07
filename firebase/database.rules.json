@@ -1,0 +1,25 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "presence": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid",
+        "$deviceId": {
+          ".validate": "newData.hasChildren(['online', 'monitoringActive', 'lastSeen']) && newData.child('online').isBoolean() && newData.child('monitoringActive').isBoolean() && newData.child('lastSeen').isNumber()"
+        }
+      }
+    },
+    "liveAlerts": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid",
+        "$deviceId": {
+          ".validate": "newData.hasChildren(['eventId', 'label', 'source', 'confidence', 'timestampMs']) && newData.child('label').isString() && newData.child('confidence').isNumber() && newData.child('confidence').val() >= 0 && newData.child('confidence').val() <= 1"
+        }
+      }
+    }
+  }
+}
+

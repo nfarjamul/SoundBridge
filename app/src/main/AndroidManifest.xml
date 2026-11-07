@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Microphone & Foreground Monitoring Permissions -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Network Permissions (Firebase Auth/Firestore/RTDB & API Demo) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Legacy Bluetooth Permissions (Android 11 / API 30 and below) -->
+    <uses-permission
+        android:name="android.permission.BLUETOOTH"
+        android:maxSdkVersion="30" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_ADMIN"
+        android:maxSdkVersion="30" />
+
+    <!-- Android 12+ (API 31+) Runtime Bluetooth Permissions -->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation"
+        tools:targetApi="s" />
+
+    <application
+        android:name=".SoundBridgeApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SoundBridge">
+
+        <!-- Welcome / Google Sign-In Activity (Launcher) -->
+        <activity
+            android:name=".ui.LoginActivity"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Primary Monitoring Dashboard Activity -->
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
+
+        <!-- Sound Alert History Activity (RecyclerView + ContentProvider query) -->
+        <activity
+            android:name=".ui.HistoryActivity"
+            android:exported="false" />
+
+        <!-- Custom Sound Library & Example Enrollment Activity -->
+        <activity
+            android:name=".ui.SoundLibraryActivity"
+            android:exported="false" />
+
+        <!-- Settings, Bluetooth Companion & Account Management Activity -->
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:exported="false" />
+
+        <!-- High-Visibility Alert Detail Activity (Notification Deep Link & Share Intent) -->
+        <activity
+            android:name=".ui.AlertDetailActivity"
+            android:exported="false" />
+
+        <!-- Isolated Web Service / REST & XML Parsing Demo Activity -->
+        <activity
+            android:name=".ui.ApiDemoActivity"
+            android:exported="false" />
+
+        <!-- Admin Sound Calibration & Review Activities -->
+        <activity
+            android:name=".ui.AdminDashboardActivity"
+            android:exported="false"
+            android:label="Admin Dashboard" />
+
+        <activity
+            android:name=".ui.AdminCorrectionActivity"
+            android:exported="false"
+            android:label="Calibrate Sound" />
+
+        <activity
+            android:name=".ui.AdminCalibrationManageActivity"
+            android:exported="false"
+            android:label="Manage Calibrations" />
+
+        <!-- User-Started Foreground Microphone Monitoring Service -->
+        <service
+            android:name=".service.SoundMonitorForegroundService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="microphone" />
+
+        <!-- App-Owned Private Read-Only ContentProvider over Alert History & Custom Sounds -->
+        <provider
+            android:name=".data.SoundBridgeContentProvider"
+            android:authorities="com.soundbridge.app.provider"
+            android:enabled="true"
+            android:exported="false" />
+
+        <!-- System State BroadcastReceiver for Battery, Airplane Mode, and Bluetooth State -->
+        <receiver
+            android:name=".receiver.SystemStateBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_LOW" />
+                <action android:name="android.intent.action.BATTERY_OKAY" />
+                <action android:name="android.intent.action.AIRPLANE_MODE" />
+                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

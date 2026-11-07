@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Secondary Subtle Reflection Arch -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M33,77 Q54,63 75,77"
+        android:strokeWidth="3.2"
+        android:strokeColor="#8CEBF0"
+        android:strokeAlpha="0.55"
+        android:strokeLineCap="round" />
+
+    <!-- Primary Acoustic Bridge Arch Underneath Soundwave Bars (Safe Zone: 24..84) -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M28,74 Q54,53 80,74"
+        android:strokeWidth="5.4"
+        android:strokeLineCap="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:startX="28"
+                android:startY="74"
+                android:endX="80"
+                android:endY="63"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#A5F3FC" />
+                <item android:offset="0.5" android:color="#FFFFFF" />
+                <item android:offset="1.0" android:color="#5EEAD4" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Five Sculpted Harmonic Soundwave Bars -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M34.5,46 L34.5,58"
+        android:strokeWidth="5.2"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round" />
+
+    <path
+        android:fillColor="#8CF6FF"
+        android:pathData="M44.2,37 L44.2,56"
+        android:strokeWidth="5.6"
+        android:strokeColor="#8CF6FF"
+        android:strokeLineCap="round" />
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,29 L54,54.5"
+        android:strokeWidth="6.0"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round" />
+
+    <path
+        android:fillColor="#8CF6FF"
+        android:pathData="M63.8,37 L63.8,56"
+        android:strokeWidth="5.6"
+        android:strokeColor="#8CF6FF"
+        android:strokeLineCap="round" />
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M73.5,46 L73.5,58"
+        android:strokeWidth="5.2"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round" />
+
+    <!-- Luminous Alert Pulse Beacon at Apex -->
+    <path
+        android:fillColor="#405EEAD4"
+        android:pathData="M54,21.2m-5.2,0a5.2,5.2 0,1 1,10.4 0a5.2,5.2 0,1 1,-10.4 0" />
+    <path
+        android:fillColor="#82FFE2"
+        android:pathData="M54,21.2m-3.2,0a3.2,3.2 0,1 1,6.4 0a3.2,3.2 0,1 1,-6.4 0" />
+</vector>

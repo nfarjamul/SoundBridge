@@ -1,0 +1,60 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny all public or cross-user access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    // Canonical user profile document
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      allow create, update: if isOwner(uid)
+        && request.resource.data.keys().hasAll(['displayName', 'email', 'schemaVersion'])
+        && request.resource.data.displayName is string
+        && request.resource.data.email is string;
+      allow delete: if isOwner(uid);
+
+      // App settings subcollection
+      match /settings/{settingDoc} {
+        allow read, write: if isOwner(uid);
+      }
+
+      // Custom sound metadata subcollection (no raw audio blobs permitted)
+      match /customSounds/{soundId} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && request.resource.data.name is string
+          && request.resource.data.name.size() > 0
+          && request.resource.data.name.size() <= 80
+          && request.resource.data.sampleCount is int
+          && request.resource.data.sampleCount >= 1;
+      }
+
+      // Canonical durable alert history
+      match /alerts/{alertId} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && request.resource.data.eventId == alertId
+          && request.resource.data.label is string
+          && request.resource.data.source in ['BUILT_IN', 'CUSTOM']
+          && request.resource.data.confidence is number
+          && request.resource.data.confidence >= 0.0
+          && request.resource.data.confidence <= 1.0;
+      }
+
+      // Diagnostic system events (separate from user-facing sound alerts)
+      match /systemEvents/{eventId} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && request.resource.data.eventType is string
+          && request.resource.data.timestampMs is int;
+      }
+    }
+  }
+}
+

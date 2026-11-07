@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand & Accent Palette (Day) -->
+    <color name="primary_blue">#0F4C81</color>
+    <color name="primary_blue_dark">#0B355B</color>
+    <color name="primary_blue_light">#38BDF8</color>
+    <color name="on_primary">#FFFFFF</color>
+
+    <color name="accent_teal">#0D9488</color>
+    <color name="accent_teal_dark">#0F766E</color>
+
+    <!-- Surfaces & Borders -->
+    <color name="bg_surface">#F4F7FB</color>
+    <color name="bg_card">#FFFFFF</color>
+    <color name="bg_subtle">#EDF2F7</color>
+    <color name="card_stroke">#E2E8F0</color>
+    <color name="divider_color">#E2E8F0</color>
+
+    <!-- Typography Hierarchy -->
+    <color name="text_primary">#0F172A</color>
+    <color name="text_secondary">#475569</color>
+    <color name="text_muted">#64748B</color>
+
+    <!-- Google Sign-In Button Surface -->
+    <color name="google_btn_bg">#FFFFFF</color>
+    <color name="google_btn_text">#1E293B</color>
+    <color name="google_btn_stroke">#CBD5E1</color>
+
+    <!-- Monitoring & Sound Meter States -->
+    <color name="status_monitoring_active">#047857</color>
+    <color name="status_monitoring_bg">#ECFDF5</color>
+    <color name="status_monitoring_stopped">#475569</color>
+    <color name="status_stopped_bg">#EEF2F6</color>
+    <color name="meter_bar_inactive">#DCE4EE</color>
+
+    <!-- Semantic Alert Hierarchy -->
+    <color name="alert_urgent_red">#DC2626</color>
+    <color name="alert_urgent_bg">#FEF2F2</color>
+    <color name="alert_warning_amber">#D97706</color>
+    <color name="alert_warning_bg">#FFFBEB</color>
+    <color name="alert_info_blue">#0284C7</color>
+    <color name="alert_info_bg">#F0F9FF</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>
